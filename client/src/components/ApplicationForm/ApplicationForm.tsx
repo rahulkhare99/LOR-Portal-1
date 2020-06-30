@@ -8,22 +8,12 @@ import {
     Container,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { getTeacherList } from "../../services/teachers";
+import { getDepartmentList } from "../../services/departments";
 
-const teachers = [
-    { key: "1", text: "H. Balachandran", value: "H. Balachandran" },
-    { key: "2", text: "Swathi", value: "Swathi" },
-    { key: "3", text: "Ajitha Shenoy", value: "Ajitha Shenoy" },
-];
-const departments = [
-    { key: "1", text: "Computer Science Engineering", value: "CSE" },
-    { key: "2", text: "Computer and Communication Engineering", value: "CCE" },
-    { key: "3", text: "Information Technology", value: "IT" },
-    {
-        key: "4",
-        text: "Electronics and Communication Engineering",
-        value: "ECE",
-    },
-];
+const teachers = getTeacherList();
+
+const departments = getDepartmentList();
 
 function ApplicationForm() {
     // const handleChange = () => {};
@@ -60,9 +50,9 @@ function ApplicationForm() {
                     />
                     <Form.Field
                         control={Select}
-                        label='Department'
+                        label='Your Department'
                         options={departments}
-                        placeholder='Department'
+                        placeholder='Your Department'
                     />
                 </Form.Group>
 
