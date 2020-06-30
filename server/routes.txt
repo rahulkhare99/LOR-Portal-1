@@ -26,7 +26,7 @@ User login
 Submit Applications
 /applications
 
+PUT
 
-
-
-
+Teacher changes the status of an application
+/applications/:id
