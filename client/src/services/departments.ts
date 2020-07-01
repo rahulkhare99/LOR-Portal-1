@@ -1,14 +1,14 @@
 // import http from "./http";
 
 interface department {
-    departmentId: String;
-    name: String;
+    departmentId: string;
+    name: string;
 }
 
 interface departmentList {
-    key: String;
-    text: String;
-    value: String;
+    key: string;
+    text: string;
+    value: string;
 }
 
 export function getDepartmentList(): departmentList[] {

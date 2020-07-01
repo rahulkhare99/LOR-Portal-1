@@ -1,33 +1,12 @@
-import http from "./http";
+import { teacher, Application } from "./user";
 
 interface teacherApplications {
-    applicationId: String;
-    student: String;
-    department: String;
+    applicationId: string;
+    student: string;
+    department: string;
+    status: string;
 }
-export function getTeacherApplications(): teacherApplications[] {
-    const teacherApplications: teacherApplications[] = [
-        {
-            applicationId: "1",
-            student: "Rohit",
-            department: "ICT",
-        },
-        {
-            applicationId: "2",
-            student: "Darshan",
-            department: "EEE",
-        },
-        {
-            applicationId: "3",
-            student: "Megha",
-            department: "CSE",
-        },
-        {
-            applicationId: "4",
-            student: "Disha",
-            department: "ECE",
-        },
-    ];
-
+export function getTeacherApplications(): Application[] {
+    const teacherApplications: Application[] = teacher.info.applications;
     return teacherApplications;
 }

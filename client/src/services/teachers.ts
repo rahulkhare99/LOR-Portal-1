@@ -1,14 +1,14 @@
 // import http from "./http";
 
 interface teacher {
-    name: String;
-    teacherId: String;
-    department: String;
+    name: string;
+    teacherId: string;
+    department: string;
 }
 interface teacherList {
-    key: String;
-    text: String;
-    value: String;
+    key: string;
+    text: string;
+    value: string;
 }
 
 export function getTeacherList(): teacherList[] {

@@ -1,10 +1,10 @@
 // User model
 const userSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    googleId: String,
-    secret: String,
-    secretToken: String,
+    email: string,
+    password: string,
+    googleId: string,
+    secret: string,
+    secretToken: string,
 });
 
 userSchema.plugin(passportLocalMongoose);
