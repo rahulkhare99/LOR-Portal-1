@@ -1,0 +1,32 @@
+GET
+
+Applications for a teacher with a given id
+/teachers/:id/applications
+
+Student's applications
+/students/:id/applications
+
+All teachers
+/teachers
+
+All departments
+/departments
+
+Application based on ID (for teachers)
+/applications/:id
+
+POST
+
+User registration
+/students
+
+User login
+/login
+
+Submit Applications
+/applications
+
+PUT
+
+Teacher changes the status of an application
+/applications/:id
