@@ -9,10 +9,78 @@ import {
     Segment,
     Container,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import * as yup from "yup";
+import {
+    Formik,
+    Form as FormikForm,
+    Field,
+    FieldAttributes,
+    useField,
+} from "formik";
+import { useHistory } from "react-router-dom";
+
+type InputFieldProps = {
+    placeholder: string;
+    icon?: string;
+    type: string;
+} & FieldAttributes<{}>;
+
+const InputField: React.FC<InputFieldProps> = ({
+    placeholder,
+    icon,
+    style,
+    type,
+    ...props
+}) => {
+    const [field, meta] = useField<{}>(props);
+    // get the error text from meta
+    const errorText: string | undefined =
+        meta.error && meta.touched ? meta.error : "";
+    let output: any;
+    if (!!errorText) {
+        output = (
+            <>
+                <Field
+                    fluid
+                    type={type}
+                    style={style}
+                    icon={icon}
+                    {...field}
+                    iconPosition='left'
+                    placeholder={placeholder}
+                    error={!!errorText}
+                    as={Form.Input}
+                />
+                <Message error content={errorText} size='tiny' />
+            </>
+        );
+    } else {
+        output = (
+            <Field
+                fluid
+                type={type}
+                icon={icon}
+                {...field}
+                style={style}
+                iconPosition='left'
+                placeholder={placeholder}
+                error={!!errorText}
+                as={Form.Input}
+            />
+        );
+    }
+    return output;
+};
+
+const validationSchema = yup.object({
+    email: yup.string().email().required("Email is required."),
+    password: yup.string().required("Password is required.").min(5).max(30),
+});
+
 function Login() {
+    const history = useHistory();
     return (
-        <Container style={{ textAlign: "center" }}>
+        <Container style={{ textAlign: "center", overflow: "hidden" }}>
             <Header
                 as='h1'
                 color='black'
@@ -37,29 +105,54 @@ function Login() {
                     >
                         Log In
                     </Header>
-                    <Form size='large'>
-                        <Segment stacked>
-                            <Form.Input
-                                fluid
-                                icon='user'
-                                iconPosition='left'
-                                placeholder='Email ID'
-                                type='email'
-                            />
-                            <Form.Input
-                                fluid
-                                icon='lock'
-                                iconPosition='left'
-                                placeholder='Password'
-                                type='password'
-                            />
-                            <Link to='/dashboard'>
-                                <Button color='violet' fluid size='large'>
-                                    Login
+                    <Formik
+                        initialValues={{
+                            email: "",
+                            password: "",
+                        }}
+                        validationSchema={validationSchema}
+                        onSubmit={(data, { setSubmitting, resetForm }) => {
+                            setSubmitting(true);
+                            // STORE INTO DATABASE
+                            console.log("Submit: ", data);
+                            history.push("/dashboard");
+                            setSubmitting(false);
+                            resetForm();
+                        }}
+                    >
+                        {({ values, errors, isSubmitting }) => (
+                            <FormikForm>
+                                <Segment stacked size='big'>
+                                    <InputField
+                                        icon='user'
+                                        placeholder='Email ID'
+                                        name='email'
+                                        type='email'
+                                    />
+                                    <InputField
+                                        icon='lock'
+                                        placeholder='Password'
+                                        name='password'
+                                        type='password'
+                                        style={{ marginTop: "20px" }}
+                                    />
+                                </Segment>
+                                <Button
+                                    disabled={isSubmitting}
+                                    type='submit'
+                                    color='violet'
+                                    fluid
+                                    size='large'
+                                >
+                                    LOGIN
                                 </Button>
-                            </Link>
-                        </Segment>
-                    </Form>
+                                <pre>{JSON.stringify(values, null, 2)}</pre>
+                                <pre>
+                                    Errors: {JSON.stringify(errors, null, 2)}
+                                </pre>
+                            </FormikForm>
+                        )}
+                    </Formik>
                     <Message>
                         New user?
                         <a href='/register'> Register</a>
