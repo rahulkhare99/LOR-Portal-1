@@ -1,75 +1,10 @@
 import React from "react";
 import "semantic-ui-css/semantic.min.css";
-import {
-    Button,
-    Form,
-    Grid,
-    Header,
-    Message,
-    Segment,
-} from "semantic-ui-react";
-import {
-    Formik,
-    Form as FormikForm,
-    Field,
-    FieldAttributes,
-    useField,
-} from "formik";
+import { Button, Grid, Header, Message, Segment } from "semantic-ui-react";
+import { Formik, Form as FormikForm } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
-
-type InputFieldProps = {
-    placeholder: string;
-    type: string;
-    icon?: string;
-} & FieldAttributes<{}>;
-
-const InputField: React.FC<InputFieldProps> = ({
-    placeholder,
-    icon,
-    style,
-    type,
-    ...props
-}) => {
-    const [field, meta] = useField<{}>(props);
-    // get the error text from meta
-    const errorText: string | undefined =
-        meta.error && meta.touched ? meta.error : "";
-    let output: any;
-    if (!!errorText) {
-        output = (
-            <>
-                <Field
-                    fluid
-                    style={style}
-                    icon={icon}
-                    {...field}
-                    iconPosition='left'
-                    type={type}
-                    placeholder={placeholder}
-                    error={!!errorText}
-                    as={Form.Input}
-                />
-                <Message error content={errorText} size='tiny' />
-            </>
-        );
-    } else {
-        output = (
-            <Field
-                fluid
-                icon={icon}
-                type={type}
-                {...field}
-                style={style}
-                iconPosition='left'
-                placeholder={placeholder}
-                error={!!errorText}
-                as={Form.Input}
-            />
-        );
-    }
-    return output;
-};
+import { InputField } from "../common/InputField";
 
 const validationSchema = yup.object({
     name: yup.string().required("Name is a required.").max(50),
@@ -152,10 +87,10 @@ function Register() {
                                 >
                                     REGISTER
                                 </Button>
-                                <pre>{JSON.stringify(values, null, 2)}</pre>
+                                {/* <pre>{JSON.stringify(values, null, 2)}</pre>
                                 <pre>
                                     Errors: {JSON.stringify(errors, null, 2)}
-                                </pre>
+                                </pre> */}
                             </FormikForm>
                         )}
                     </Formik>
