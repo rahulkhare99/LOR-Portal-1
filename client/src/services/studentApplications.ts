@@ -1,6 +1,6 @@
 import { student, Application } from "./user";
 
 export function getStudentApplications(): Application[] {
-    const studentApplications = student.info.applications;
+    const studentApplications = student.applications;
     return studentApplications;
 }

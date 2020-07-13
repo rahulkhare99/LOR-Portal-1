@@ -7,6 +7,6 @@ interface teacherApplications {
     status: string;
 }
 export function getTeacherApplications(): Application[] {
-    const teacherApplications: Application[] = teacher.info.applications;
+    const teacherApplications: Application[] = teacher.applications;
     return teacherApplications;
 }

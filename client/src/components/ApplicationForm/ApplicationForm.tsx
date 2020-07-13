@@ -7,21 +7,24 @@ import {
     TextArea,
     Container,
 } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import { getTeacherList } from "../../services/teachers";
 import { getDepartmentList } from "../../services/departments";
+import { useHistory } from "react-router-dom";
 
 const teachers = getTeacherList();
 
 const departments = getDepartmentList();
 
 function ApplicationForm() {
-    // const handleChange = () => {};
+    const history = useHistory();
     return (
         <Container style={{ padding: "4em", marginTop: "2.5em" }}>
-            <Link to='/dashboard'>
-                <Button style={{ marginBottom: "2em" }}>Back</Button>
-            </Link>
+            <Button
+                style={{ marginBottom: "2em" }}
+                onClick={() => history.push("/dashboard")}
+            >
+                Back
+            </Button>
             <Form>
                 <Form.Group widths='equal'>
                     <Form.Field
@@ -63,9 +66,12 @@ function ApplicationForm() {
                     style={{ height: "400px" }}
                 />
                 <Form.Field>
-                    <Link to='/dashboard'>
-                        <Button color='violet'>Submit</Button>
-                    </Link>
+                    <Button
+                        color='violet'
+                        onClick={() => history.push("/dashboard")}
+                    >
+                        Submit
+                    </Button>
                 </Form.Field>
             </Form>
         </Container>

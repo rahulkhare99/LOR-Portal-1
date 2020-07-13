@@ -1,15 +1,17 @@
 import React from "react";
 import { Button, Menu, Container } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import TeacherTable from "./TeacherTable";
+import { useHistory } from "react-router-dom";
+
 function TeacherDashboard() {
+    const history = useHistory();
     return (
         <div>
             <Menu style={{ fontSize: "1rem" }}>
                 <Menu.Item position='right'>
-                    <Link to='/login'>
-                        <Button>Log Out</Button>
-                    </Link>
+                    <Button onClick={() => history.push("/login")}>
+                        Log Out
+                    </Button>
                 </Menu.Item>
             </Menu>
             <Container textAlign='center'>

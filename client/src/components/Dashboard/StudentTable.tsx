@@ -36,7 +36,7 @@ function StudentTable() {
                 </Table.Header>
                 <Table.Body>
                     {studentApplications.map((studentApplication) => (
-                        <Table.Row>
+                        <Table.Row key={studentApplication.id}>
                             <Table.Cell>{studentApplication.id}</Table.Cell>
                             <Table.Cell>
                                 {studentApplication.teacher}
