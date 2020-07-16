@@ -5,7 +5,7 @@ interface teacher {
     teacherId: string;
     department: string;
 }
-interface teacherList {
+export interface teacherList {
     key: string;
     text: string;
     value: string;
