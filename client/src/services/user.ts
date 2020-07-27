@@ -126,7 +126,8 @@ export const student: StudentUser = {
     ],
 };
 
+
 export function getCurrentUser() {
-    const user = student;
+    const user = teacher;
     return user;
 }
