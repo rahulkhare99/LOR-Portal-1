@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Header } from "semantic-ui-react";
 import ViewButton from "../ViewApplication/ViewButton";
 import { getTeacherApplications } from "../../services/teacherApplications";
+import { teacher } from "../../services/user";
 // import { Link } from "react-router-dom";
 // import { teacher } from "../../services/user";
 
@@ -28,11 +29,12 @@ function TeacherTable() {
                         <Table.HeaderCell>Student</Table.HeaderCell>
                         <Table.HeaderCell>Department</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
-                        <Table.HeaderCell></Table.HeaderCell>
+                        <Table.HeaderCell>{}</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
+                    {/*TODO: replace with teacher object's applications.*/}
                     {teacherApplications.map((teacherApplication) => (
                         <Table.Row>
                             <Table.Cell>{teacherApplication.id}</Table.Cell>
@@ -48,7 +50,7 @@ function TeacherTable() {
                                 {/* <Link
                                     to={`/users/${teacher.info.id}/${teacher.info.applications[0].id}`}
                                 > */}
-                                <ViewButton />
+                                <ViewButton applications={teacher.applications} applicationId={teacherApplication.id} />
                                 {/* </Link> */}
                             </Table.Cell>
                         </Table.Row>
