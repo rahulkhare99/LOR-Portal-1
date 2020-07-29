@@ -33,14 +33,14 @@ const applicationSchema = new mongoose.Schema({
 const Application = mongoose.model("Application", applicationSchema);
 
 function validateApplication(application) {
-    const schema = {
-        faculty: Joi.string().required(),
-        student: Joi.string().required(),
+    const schema = Joi.object({
+        faculty: Joi.object(facultyUserSchema).required(),
+        student: Joi.object(studentUserSchema).required(),
         facultyDepartment: Joi.string().required(),
         studentDepartment: Joi.string().required(),
         status: Joi.string().required(),
-    };
-    return Joi.validate(application, schema);
+    });
+    return schema.validate(application);
 }
 
 exports.Application = Application;

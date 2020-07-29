@@ -9,13 +9,14 @@ const facultyUserSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    facultyRegNo: {
+    regNo: {
         type: String,
         required: true,
     },
+    // use .populate() method to get the application details
     applications: [
         {
-            type: applicationSchema,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Application",
         },
     ],
@@ -24,12 +25,12 @@ const facultyUserSchema = new mongoose.Schema({
 const FacultyUser = mongoose.model("FacultyUser", facultyUserSchema);
 
 function validateFacultyUser(facultyUser) {
-    const schema = {
+    const schema = Joi.object({
         info: Joi.object(userSchema).required(),
-        facultyRegNo: Joi.string().required(),
+        regNo: Joi.string().required(),
         applications: Joi.array().required(),
-    };
-    return Joi.validate(facultyUser, schema);
+    });
+    return schema.validate(facultyUser);
 }
 
 exports.FacultyUser = FacultyUser;

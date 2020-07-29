@@ -15,7 +15,7 @@ const studentUserSchema = new mongoose.Schema({
     },
     applications: [
         {
-            type: applicationSchema,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Application",
         },
     ],
@@ -23,15 +23,15 @@ const studentUserSchema = new mongoose.Schema({
 
 const StudentUser = mongoose.model("StudentUser", studentUserSchema);
 
-function validateFacultyUser(facultyUser) {
-    const schema = {
+function validateStudentUser(studentUser) {
+    const schema = Joi.object({
         info: Joi.object(userSchema).required(),
-        teacherId: Joi.string().required(),
+        regNo: Joi.string().required(),
         applications: Joi.array().required(),
-    };
-    return Joi.validate(facultyUser, schema);
+    });
+    return schema.validate(studentUser);
 }
 
-exports.FacultyUser = FacultyUser;
-exports.facultyUserSchema = studentUserSchema;
-exports.validateFacultyUser = validateFacultyUser;
+exports.StudentUser = StudentUser;
+exports.studentUserSchema = studentUserSchema;
+exports.validateFacultyUser = validateStudentUser;
