@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { StudentUser, validateStudentUser } = require("../models/studentUser");
+const { FacultyUser, validateFacultyUser } = require("../models/facultyUser");
 const { Application } = require("../models/application");
+const { User } = require("../models/user");
 
 router.get("/", async (req, res) => {
     try {
-        const students = await StudentUser.find();
-        res.send(students);
+        const faculties = await FacultyUser.find();
+        res.send(faculties);
     } catch (error) {
         console.log("Error occurred: ", error);
     }
@@ -14,14 +15,14 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const student = await StudentUser.findById(req.params.id).populate(
+        const faculty = await FacultyUser.findById(req.params.id).populate(
             "applications"
         );
-        if (!student) {
-            res.status(404).send("Student not found");
+        if (!faculty) {
+            res.status(404).send("Faculty not found");
             return;
         }
-        res.send(student);
+        res.send(faculty);
     } catch (error) {
         console.log("Error occurred: ", error);
     }
@@ -29,28 +30,27 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { error } = validateStudentUser(req.body);
+        const { error } = validateFacultyUser(req.body);
         if (error) {
             res.status(400).send(error.details[0].message);
             return;
         }
 
         const applications = await Application.find({
-            "student._id": req.params.studentId,
+            "faculty._id": req.query.facultyId,
         });
 
         const user = await User.findOne({
             _id: req.query.userId,
         });
 
-        const student = new StudentUser({
+        const faculty = new FacultyUser({
             info: user,
             regNo: req.body.regNo,
             applications: applications ? applications : null,
         });
-
-        await student.save();
-        res.send(student);
+        await faculty.save();
+        res.send(faculty);
     } catch (error) {
         console.log("Error occurred: ", error);
     }

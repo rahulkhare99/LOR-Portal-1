@@ -11,9 +11,10 @@ const departmentSchema = mongoose.Schema({
 const Department = mongoose.model("Department", departmentSchema);
 
 function validateDepartment(department) {
-    const schema = {
+    const schema = Joi.object({
         name: Joi.string().required(),
-    };
+    });
+    return schema.validate(department);
 }
 
 exports.Department = Department;

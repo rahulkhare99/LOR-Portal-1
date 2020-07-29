@@ -25,13 +25,13 @@ const StudentUser = mongoose.model("StudentUser", studentUserSchema);
 
 function validateStudentUser(studentUser) {
     const schema = Joi.object({
-        info: Joi.object(userSchema).required(),
+        info: Joi.object(userSchema).required("User is required"),
         regNo: Joi.string().required(),
-        applications: Joi.array().required(),
+        applications: Joi.array(),
     });
     return schema.validate(studentUser);
 }
 
 exports.StudentUser = StudentUser;
 exports.studentUserSchema = studentUserSchema;
-exports.validateFacultyUser = validateStudentUser;
+exports.validateStudentUser = validateStudentUser;
