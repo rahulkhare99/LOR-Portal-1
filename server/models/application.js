@@ -1,18 +1,20 @@
 const Joi = require("@hapi/joi");
 const mongoose = require("mongoose");
+const { facultyUserSchema } = require("../models/facultyUser");
+const { studentUserSchema } = require("../models/studentUser");
 
 const applicationSchema = new mongoose.Schema({
-    teacher: {
-        type: mongoose.Types.ObjectId,
+    faculty: {
+        type: facultyUserSchema,
         ref: "FacultyUser",
         required: true,
     },
     student: {
-        type: mongoose.Types.ObjectId,
+        type: studentUserSchema,
         ref: "StudentUser",
         required: true,
     },
-    teacherDepartment: {
+    facultyDepartment: {
         // TODO: replace with teacherUser
         type: String,
         required: true,
@@ -32,9 +34,9 @@ const Application = mongoose.model("Application", applicationSchema);
 
 function validateApplication(application) {
     const schema = {
-        teacher: Joi.string().required(),
+        faculty: Joi.string().required(),
         student: Joi.string().required(),
-        teacherDepartment: Joi.string().required(),
+        facultyDepartment: Joi.string().required(),
         studentDepartment: Joi.string().required(),
         status: Joi.string().required(),
     };

@@ -9,7 +9,7 @@ const facultyUserSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    teacherId: {
+    facultyRegNo: {
         type: String,
         required: true,
     },
@@ -26,7 +26,7 @@ const FacultyUser = mongoose.model("FacultyUser", facultyUserSchema);
 function validateFacultyUser(facultyUser) {
     const schema = {
         info: Joi.object(userSchema).required(),
-        teacherId: Joi.string().required(),
+        facultyRegNo: Joi.string().required(),
         applications: Joi.array().required(),
     };
     return Joi.validate(facultyUser, schema);
