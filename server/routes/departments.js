@@ -4,7 +4,7 @@ const { Department, validateDepartment } = require("../models/department");
 
 router.get("/", async (req, res) => {
     try {
-        const departments = Department.find();
+        const departments = await Department.find().sort("name");
         res.send(departments);
     } catch (error) {
         console.log("Error occurred: ", error);
